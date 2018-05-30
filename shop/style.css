@@ -1,0 +1,33 @@
+.pagination{
+    justify-content: center;
+}
+
+.pagination li{
+    margin-top: 20px;
+
+}
+.content-item{
+    justify-content: space-evenly;
+    padding: 20px;
+}
+.card{
+    /*height: 400px;*/
+    margin-bottom: 50px;
+}
+.card-body{
+    /*height: 150px;*/
+}
+.card-title, .btn{
+    align-self: end;
+}
+.card-img-top{
+    height: 250px;
+    padding: 20px;
+}
+.sort{
+
+}
+.sort-btn{
+    /*list-style: none;*/
+    text-decoration: none;
+}
