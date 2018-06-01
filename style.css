@@ -21,7 +21,7 @@
     align-self: end;
 }
 .card-img-top{
-    height: 250px;
+    /*height: 250px;*/
     padding: 20px;
 }
 .sort{

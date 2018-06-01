@@ -1,12 +1,11 @@
 <?php
 require_once __DIR__.'\..\models\db.php';
 
-class ViewItem{
-    use DB;
+class ViewItem extends DB{
 
     public function getItem(){
         $id = $_GET["id"];
-        $pdo = $this->pdo;
+        $pdo = $this->getPDO();
 
         $result = $pdo->prepare("SELECT * FROM product WHERE id= ?");
         $result->execute([$id]);
@@ -16,8 +15,8 @@ class ViewItem{
                         <img class='card-img-top img-fluid' src='../".$row['image']."' alt='Card image cap'>
                         <div class='card-body'>
                             <h5 class='card-title'>".$row['title']."</h5>
-                            <p><b>Цена: ".$row['price']."</b></p>
-                            <p> Размер: ".$row['size']."</p>
+                            <p><b>Цена: ".$row['price']." $ </b></p>
+                            <p> Размер: ".$row['size']." mm</p>
                             <p>Цвет: ".$row['color']."</p>
                             <p><b>Описание:</b> <br>".$row['description']."</p>
                         </div>

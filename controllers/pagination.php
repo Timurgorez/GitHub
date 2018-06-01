@@ -1,18 +1,17 @@
 <?php
 
-require_once __DIR__.'\..\models\db.php';
-require_once __DIR__.'\sorting.php';
+//require_once __DIR__.'\..\models\db.php';
+require_once __DIR__ . '\SortCategory.php';
 
 class Pagination extends SortCategory{
-    use DB;
 
-    protected $max_posts = 3; // Количество товара на одной странице.
+    protected $maxItemsOnPage = 3; // Количество товара на одной странице.
     protected $itemCount ; // Общее количество товара в базе.
     protected $pagesCount ; // Общее число станиц которое нужно для товара.
 
 
     public function getPagesCount (){
-        $pdo = $this->pdo;
+        $pdo = $this->getPDO();
         $result = $pdo->prepare("SELECT COUNT(*) as count FROM product");
         $result->execute();
         $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -25,7 +24,7 @@ class Pagination extends SortCategory{
         if($_GET["category"]){
             $this->itemCount = $this->getItemsForCategory ();
         }
-        $this->pagesCount = ceil($this->itemCount / $this->max_posts);
+        $this->pagesCount = ceil($this->itemCount / $this->maxItemsOnPage);
 
         $url = substr(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 0, 10);
 
@@ -37,18 +36,17 @@ class Pagination extends SortCategory{
             }
 
         }
-//        return $this->pagesCount;
     }
 
     public function buildItemsOnPage($currentPage){
-        $pdo = $this->pdo;
-        $start = ($currentPage * $this->max_posts) - $this->max_posts;
+        $pdo = $this->getPDO();
+        $start = ($currentPage * $this->maxItemsOnPage) - $this->maxItemsOnPage;
 
         if($_GET['category']){
             $category = $_GET['category'];
-            $result = $pdo->prepare("SELECT * FROM product WHERE category_id = $category ORDER BY id DESC LIMIT $start, $this->max_posts");
+            $result = $pdo->prepare("SELECT * FROM product WHERE category_id = $category ORDER BY id DESC LIMIT $start, $this->maxItemsOnPage");
         }else{
-            $result = $pdo->prepare("SELECT * FROM product ORDER BY id DESC LIMIT $start, $this->max_posts");
+            $result = $pdo->prepare("SELECT * FROM product ORDER BY id DESC LIMIT $start, $this->maxItemsOnPage");
         }
 
         $result->execute();
@@ -67,4 +65,3 @@ class Pagination extends SortCategory{
 
 
 }
-$pagination = new Pagination();

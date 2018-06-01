@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__.'/controllers/viewItem.php';
-require_once __DIR__.'/controllers/pagination.php';
-require_once __DIR__. '/controllers/sorting.php';
+require_once __DIR__ . '/controllers/ViewItem.php';
+require_once __DIR__ . '/controllers/Pagination.php';
+require_once __DIR__ . '/controllers/SortCategory.php';
 
 if($_GET['page']){
     $currentPage = $_GET['page'];
@@ -10,16 +10,16 @@ if($_GET['page']){
     $currentPage = 1;
 }
 if($_GET['id']){
-    $id = $_GET['id'];
     $oneItem = new ViewItem();
 }
 
+$pagination = new Pagination();
+$sort = new SortCategory();
+
+
+
 //var_dump(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
 //echo $_SERVER['REQUEST_URI'];
-
-$sort = new SortCategory();
-//$pagination = new Pagination();
- $sort->getItemsForCategory();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -37,13 +37,7 @@ $sort = new SortCategory();
                 <a href="index.php" class="navbar-brand">LOGO</a>
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?=$_SERVER['REQUEST_URI'];
-                        if(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)){
-                            echo "&type=1";
-                        }else{
-                            echo "?type=1";
-                        }
-                        ?>">Active</a>
+                        <a class="nav-link active" href="#">Active</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>

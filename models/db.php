@@ -1,27 +1,71 @@
 ﻿<?php
 
 
-trait DB {
-    private $host = "localhost";
-    private $admin = "root";
-    private $pass = "";
-    private $db_name = "shop";
-    protected $pdo;
+//trait DB {
+//    private $host = "localhost";
+//    private $admin = "root";
+//    private $pass = "";
+//    private $db_name = "shop";
+//    protected $pdo;
+//
+//    public function __construct(){
+//        try{
+//            $pdo = new PDO("mysql:host={$this->host};dbname={$this->db_name}", $this->admin, $this->pass);
+//            return $this->pdo = $pdo;
+//        }catch (PDOException $e){
+//            echo $e;
+//        }
+//    }
+//
+//    public function Validation ($var){
+//        $var = htmlspecialchars($var, ENT_QUOTES);
+//        $var = trim($var);
+//        return $var;
+//    }
+//
+//}
 
-    public function __construct(){
+//$pdo =
+
+class DB {
+    /**
+     * @var Singleton
+     */
+
+    private static $instance = null;
+    private $pdo = null;
+
+    public $data = [
+        'host' => 'localhost',
+        'port' => '3306',
+        'db_name' => 'shop',
+        'admin' => 'root',
+        'pass' => '',
+    ];
+
+    private function __wakeup(){}
+    private function __clone(){}
+    public function __construct($config = []){
         try{
-            $pdo = new PDO("mysql:host={$this->host};dbname={$this->db_name}", $this->admin, $this->pass);
+            $pdo = new PDO("mysql:host={$config['host']}; port={$config['port']}; dbname={$config['db_name']}", $config['admin'], $config['pass']);
             return $this->pdo = $pdo;
         }catch (PDOException $e){
-            echo $e;
+            //echo $e->getMessage();
         }
     }
 
-    public function Validation ($var){
-        $var = htmlspecialchars($var, ENT_QUOTES);
-        $var = trim($var);
-        return $var;
+    public static function getInstance($config = []){
+        return (!isset(static::$instance)) ? self::$instance = new self($config) : self::$instance;
+    }
+    public function PDO(){
+        return $this->pdo;
+    }
+    public function getPDO(){
+        return DB::getInstance($this->data)->PDO();
     }
 
+
 }
+
+
 
