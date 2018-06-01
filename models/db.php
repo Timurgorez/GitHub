@@ -35,7 +35,7 @@ class DB {
     private static $instance = null;
     private $pdo = null;
 
-    public $data = [
+    private static $defaultConfig = [
         'host' => 'localhost',
         'port' => '3306',
         'db_name' => 'shop',
@@ -45,25 +45,31 @@ class DB {
 
     private function __wakeup(){}
     private function __clone(){}
-    public function __construct($config = []){
+    public function __construct($config = [])
+    {
+        if(empty($config))
+        {
+            $config = self::$defaultConfig;
+        }
         try{
-            $pdo = new PDO("mysql:host={$config['host']}; port={$config['port']}; dbname={$config['db_name']}", $config['admin'], $config['pass']);
-            return $this->pdo = $pdo;
+            $this->pdo = new PDO("mysql:host={$config['host']}; port={$config['port']}; dbname={$config['db_name']}", $config['admin'], $config['pass']);
         }catch (PDOException $e){
-            //echo $e->getMessage();
+            echo $e->getMessage();
         }
     }
 
-    public static function getInstance($config = []){
-        return (!isset(static::$instance)) ? self::$instance = new self($config) : self::$instance;
+    public static function getInstance($config = [])
+    {
+        if(!isset(static::$instance))
+        {
+            self::$instance = new self($config);
+        }
+        return self::$instance;
     }
-    public function PDO(){
+    public function PDO()
+    {
         return $this->pdo;
     }
-    public function getPDO(){
-        return DB::getInstance($this->data)->PDO();
-    }
-
 
 }
 

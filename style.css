@@ -1,3 +1,9 @@
+
+a{
+    color: black;
+}
+
+
 .pagination{
     justify-content: center;
 }
@@ -12,22 +18,58 @@
 }
 .card{
     /*height: 400px;*/
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 .card-body{
-    /*height: 150px;*/
+    height: 180px;
+    //display: flex;
 }
-.card-title, .btn{
-    align-self: end;
-}
-.card-img-top{
-    /*height: 250px;*/
-    padding: 20px;
-}
-.sort{
+.card-body a{
 
 }
-.sort-btn{
-    /*list-style: none;*/
-    text-decoration: none;
+.card-title, .btn{
+
+}
+.card-body a{
+    width: 85%;
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+}
+.card-img{
+    height: 300px;
+    padding: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+.card-img-top{
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+}
+.sort{
+    padding-left: 0;
+}
+.sort-btn {
+    margin-top: 20px;
+    list-style: none;
+    font-size: 20px;
+    text-align: center;
+}
+.sort-btn a{
+    width: 100%;
+}
+.card-full{
+    width: 100%;
+}
+.img-inside{
+    /*height: 400px;*/
+    /*width: 400px;*/
+}
+.card-body-inside{
+    margin-top: 30px;
+}
+.block-sort p{
+    text-align: center;
 }

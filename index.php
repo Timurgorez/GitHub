@@ -3,6 +3,7 @@
 require_once __DIR__ . '/controllers/ViewItem.php';
 require_once __DIR__ . '/controllers/Pagination.php';
 require_once __DIR__ . '/controllers/SortCategory.php';
+require_once __DIR__ . '/controllers/Search.php';
 
 if($_GET['page']){
     $currentPage = $_GET['page'];
@@ -12,14 +13,13 @@ if($_GET['page']){
 if($_GET['id']){
     $oneItem = new ViewItem();
 }
+if($_GET['search']){
+    $search = new Search();
+}
 
 $pagination = new Pagination();
 $sort = new SortCategory();
 
-
-
-//var_dump(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
-//echo $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -49,8 +49,8 @@ $sort = new SortCategory();
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="form-inline" method="get" action="index.php">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>
@@ -59,12 +59,11 @@ $sort = new SortCategory();
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-2">
+        <div class="col-2 block-sort">
             <p><b>Sort by:</b></p>
             <ul class="sort">
                 <? $sort->sorting() ?>
             </ul>
-
         </div>
         <div class="col-10">
             <div class="row content-item">
@@ -75,7 +74,7 @@ $sort = new SortCategory();
                 <div class="col">
                     <nav aria-label="...">
                         <ul class="pagination pagination-md">
-                            <? if(!$_GET['id']) $pagination->buildPagination();?>
+                            <? if(!($_GET['id'])){$pagination->buildPagination();}?>
                         </ul>
                     </nav>
                 </div>
