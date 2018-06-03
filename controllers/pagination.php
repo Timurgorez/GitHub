@@ -37,11 +37,12 @@ class Pagination extends SortCategory
 
         for($i = 1; $i <= $this->pagesCount; $i++)
         {
-            if($_GET['category']){
+            if($_GET['page'] == $i){$active = 'active';}else{$active = '';}; //current page paint in blue.
+            if($_GET['category']){  // build pagination for sort category.
                 echo "<li class='page-item'><a class='page-link' href='index.php?".$urlForCategory."&page=".$i."' >".$i."</a></li>";
-            }elseif($_GET['search']){
+            }elseif($_GET['search']){  // build pagination for search.
                 echo "<li class='page-item'><a class='page-link' href='index.php?".$urlForSearch[1]."&page=".$i."' >".$i."</a></li>";
-            }else{
+            }else{    // build pagination on main page.
                 echo "<li class='page-item'><a class='page-link' href='index.php?page=".$i."'>".$i."</a></li>";
             }
 
