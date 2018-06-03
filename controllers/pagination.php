@@ -37,13 +37,15 @@ class Pagination extends SortCategory
 
         for($i = 1; $i <= $this->pagesCount; $i++)
         {
-            if($_GET['page'] == $i){$active = 'active';}else{$active = '';}; //current page paint in blue.
+            //current page paint in blue.
+            if($_GET['page'] == $i){$active = 'active';}elseif(!($_GET['page']) && $i == 1){$active = 'active';}else{$active = '';};
+
             if($_GET['category']){  // build pagination for sort category.
-                echo "<li class='page-item'><a class='page-link' href='index.php?".$urlForCategory."&page=".$i."' >".$i."</a></li>";
+                echo "<li class='page-item ".$active."'><a class='page-link' href='index.php?".$urlForCategory."&page=".$i."' >".$i."</a></li>";
             }elseif($_GET['search']){  // build pagination for search.
-                echo "<li class='page-item'><a class='page-link' href='index.php?".$urlForSearch[1]."&page=".$i."' >".$i."</a></li>";
+                echo "<li class='page-item ".$active."'><a class='page-link' href='index.php?".$urlForSearch[1]."&page=".$i."' >".$i."</a></li>";
             }else{    // build pagination on main page.
-                echo "<li class='page-item'><a class='page-link' href='index.php?page=".$i."'>".$i."</a></li>";
+                echo "<li class='page-item ".$active."'><a class='page-link' href='index.php?page=".$i."'>".$i."</a></li>";
             }
 
         }
